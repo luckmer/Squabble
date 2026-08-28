@@ -1,0 +1,6 @@
+@import 'tailwindcss';
+@source '../../packages/**/*.{js,ts,jsx,tsx}';
+
+@theme {
+  --font-general: var(--font-general-sans), system-ui, sans-serif;
+}
