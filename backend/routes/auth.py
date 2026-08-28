@@ -1,8 +1,9 @@
-from services.auth_service import register_user_service, login_user_service
-from models.user import User, RegisterUserRequest, LoginUserRequest
-from models.security import TokenResponse
-from database.database import Database, get_db
 from fastapi import APIRouter, Depends
+
+from database.database import Database, get_db
+from models.auth import LoginUserRequest, RegisterUserRequest, User
+from models.security import TokenResponse
+from services.auth_service import login_user_service, register_user_service
 
 router = APIRouter(prefix="/v1/auth", tags=["auth"])
 

@@ -1,7 +1,9 @@
-from fastapi import FastAPI
 from contextlib import asynccontextmanager
-from routes import auth, password, health
+
+from fastapi import FastAPI
+
 from database.database import db
+from routes import auth, health, password, user
 
 
 @asynccontextmanager
@@ -16,3 +18,4 @@ app = FastAPI(lifespan=lifespan)
 app.include_router(auth.router)
 app.include_router(password.router)
 app.include_router(health.router)
+app.include_router(user.router)

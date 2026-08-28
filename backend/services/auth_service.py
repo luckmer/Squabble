@@ -1,12 +1,14 @@
-from schemas.user import get_user_by_email, insert_user, get_user_by_username
-from models.user import RegisterUserRequest, User, LoginUserRequest
-from models.security import TokenResponse
-from datetime import datetime, timezone
-from database.database import Database
-from security.index import security
-from fastapi import HTTPException
 import uuid
+from datetime import datetime, timezone
+
 import bcrypt
+from fastapi import HTTPException, status
+
+from database.database import Database
+from models.auth import LoginUserRequest, RegisterUserRequest, User
+from models.security import TokenResponse
+from schemas.user import get_user_by_email, get_user_by_username, insert_user
+from security.index import security
 
 
 async def register_user_service(db: Database, payload: RegisterUserRequest) -> User:
@@ -17,7 +19,9 @@ async def register_user_service(db: Database, payload: RegisterUserRequest) -> U
     existing_username = await username_cursor.fetchone()
 
     if existing_user is not None or existing_username is not None:
-        raise HTTPException(status_code=409, detail="User already exists")
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT, detail="User already exists"
+        )
 
     password = bcrypt.hashpw(payload.password.encode(), bcrypt.gensalt()).decode()
 
@@ -48,14 +52,20 @@ async def login_user_service(db: Database, payload: LoginUserRequest):
     row = await cursor.fetchone()
 
     if row is None:
-        raise HTTPException(status_code=401, detail="Invalid username or password")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid username or password",
+        )
 
     existing_user = User(**row)
 
     if not bcrypt.checkpw(
         payload.password.encode(), existing_user.hashed_password.encode()
     ):
-        raise HTTPException(status_code=401, detail="Invalid username or password")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid username or password",
+        )
 
     return TokenResponse(
         access_token=security.create_access_token(existing_user.id),
