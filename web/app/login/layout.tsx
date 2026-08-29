@@ -16,10 +16,10 @@ export const metadata: Metadata = {
   description: 'Sguabble',
 }
 
-export default function RootLayout({ children }: LayoutProps<'/'>) {
+export default function RootLayout({ children }: LayoutProps<'/login'>) {
   return (
     <html lang='en' className={` ${generalSans.variable}  h-full antialiased`}>
-      <body className=' flex flex-col'>{children}</body>
+      <body className='flex flex-col'>{children}</body>
     </html>
   )
 }

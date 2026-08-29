@@ -21,7 +21,7 @@ const HeaderPage = () => {
               Sign in
             </Typography>
           </LinkButton>
-          <LinkButton variant='default' href='#'>
+          <LinkButton variant='default' href='/register'>
             <Typography text='small' color='black' medium>
               Create account
             </Typography>

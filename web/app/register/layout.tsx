@@ -16,9 +16,9 @@ export const metadata: Metadata = {
   description: 'Sguabble',
 }
 
-export default function RootLayout({ children }: LayoutProps<'/'>) {
+export default function RootLayout({ children }: LayoutProps<'/register'>) {
   return (
-    <html lang='en' className={` ${generalSans.variable}  h-full antialiased`}>
+    <html lang='en' className={` ${generalSans.variable} h-full antialiased`}>
       <body className=' flex flex-col'>{children}</body>
     </html>
   )
