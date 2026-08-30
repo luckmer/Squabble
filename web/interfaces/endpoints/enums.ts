@@ -1,0 +1,19 @@
+export enum AUTH_ENDPOINTS {
+  LOGIN = 'LOGIN',
+  REGISTER = 'REGISTER',
+  REFRESH = 'REFRESH',
+}
+
+export enum PASSWORD_ENDPOINTS {
+  FORGOT = 'FORGOT',
+  RESET = 'RESET',
+}
+
+export enum HEALTH_ENDPOINTS {
+  HEALTH = 'HEALTH',
+}
+
+export enum USER_ENDPOINTS {
+  STATISTICS = 'STATISTICS',
+  PROFILE = 'PROFILE',
+}

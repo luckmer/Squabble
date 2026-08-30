@@ -4,25 +4,29 @@ import { LinkButton } from '@components/Buttons/Link'
 import Input from '@components/Input'
 import { Tile } from '@components/Tile'
 import { Typography } from '@components/Typography'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import { LuLoaderCircle } from 'react-icons/lu'
 
 type LoginFormValues = {
-  email: string
+  username: string
   password: string
 }
 
 export interface IProps {
-  onSubmit(data: LoginFormValues): void
+  onSubmit(data: LoginFormValues): Promise<boolean>
 }
 
 const Login: FC<IProps> = ({ onSubmit }) => {
+  const [invalidCredentials, setInvalidCredentials] = useState(false)
+  const [loader, setLoader] = useState(false)
+
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormValues>({
-    defaultValues: { email: '', password: '' },
+    defaultValues: { username: '', password: '' },
   })
 
   return (
@@ -38,7 +42,16 @@ const Login: FC<IProps> = ({ onSubmit }) => {
           </Typography>
         </LinkButton>
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(async (data) => {
+            setLoader(true)
+            setInvalidCredentials(false)
+            const status = await onSubmit(data)
+            setLoader(false)
+            if (status) {
+              return
+            }
+            setInvalidCredentials(true)
+          })}
           className='bg-card p-32 gap-24 flex flex-col border max-w-sm w-full shadow-lift border-border rounded-2xl'>
           <div className='flex flex-col gap-12'>
             <Typography text='h1' medium>
@@ -47,22 +60,21 @@ const Login: FC<IProps> = ({ onSubmit }) => {
             <Typography color='mutedForeground'>Pick up your streak where you left off.</Typography>
           </div>
           <Controller
-            name='email'
+            name='username'
             control={control}
             rules={{
-              required: 'Email is required',
-              pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: 'Enter a valid email address',
-              },
+              required: 'username is required',
             }}
             render={({ field }) => (
               <Input
-                label='Email'
-                placeholder='you@gmail.com'
-                onChange={field.onChange}
+                label='Username'
+                placeholder='username'
+                onChange={(e) => {
+                  field.onChange(e)
+                  if (invalidCredentials) setInvalidCredentials(false)
+                }}
                 value={field.value}
-                error={errors.email?.message}
+                error={errors.username?.message}
               />
             )}
           />
@@ -75,7 +87,10 @@ const Login: FC<IProps> = ({ onSubmit }) => {
                 label='Password'
                 type='password'
                 placeholder='••••••••'
-                onChange={field.onChange}
+                onChange={(e) => {
+                  field.onChange(e)
+                  if (invalidCredentials) setInvalidCredentials(false)
+                }}
                 value={field.value}
                 error={errors.password?.message}
                 externalChildren={
@@ -94,8 +109,21 @@ const Login: FC<IProps> = ({ onSubmit }) => {
               />
             )}
           />
-          <Button variant='default' type='submit'>
-            <Typography color='background'>Sign in</Typography>
+          {invalidCredentials && (
+            <Typography text='small' color='destructive'>
+              Invalid username or password.
+            </Typography>
+          )}
+          <Button
+            variant='default'
+            type='submit'
+            class='flex items-center justify-center'
+            disabled={loader}>
+            {loader ? (
+              <LuLoaderCircle color='black' className='animate-spin' />
+            ) : (
+              <Typography color='background'>Sign in</Typography>
+            )}
           </Button>
         </form>
         <div className='flex flex-row gap-8'>

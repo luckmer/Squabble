@@ -30,6 +30,7 @@ const Input: FC<IProps> = ({
       </div>
       <input
         type={type}
+        autoComplete={type === 'password' ? 'new-password' : 'off'}
         placeholder={placeholder}
         id={id}
         value={value}

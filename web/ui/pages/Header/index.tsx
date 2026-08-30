@@ -1,8 +1,17 @@
 import { LinkButton } from '@components/Buttons/Link'
 import { Tile } from '@components/Tile'
 import { Typography } from '@components/Typography'
+import { FC } from 'react'
 
-const HeaderPage = () => {
+export interface IProps {
+  pathname: string
+}
+
+const HeaderPage: FC<IProps> = ({ pathname }) => {
+  if (pathname !== '/') {
+    return null
+  }
+
   return (
     <header className='sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-xl px-24'>
       <div className='mx-auto flex py-16 max-w-6xl items-center justify-between px-4 sm:px-6'>
