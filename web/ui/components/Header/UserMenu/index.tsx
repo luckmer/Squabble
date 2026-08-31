@@ -6,7 +6,7 @@ import { PopoverContent } from '@components/Popover/PopoverContent'
 import { PopoverTrigger } from '@components/Popover/PopoverTrigger'
 import { Typography } from '@components/Typography'
 import { IPublicUser } from '@interfaces/api/user/interfaces'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { PiSignOutBold } from 'react-icons/pi'
 
 interface IProps {
@@ -15,11 +15,15 @@ interface IProps {
 }
 
 export const UserMenu: FC<IProps> = ({ user, onClickLogout }) => {
+  const [open, setOpen] = useState(false)
+
   return (
-    <Popover>
+    <Popover open={open}>
       <PopoverTrigger
         render={
-          <button className='rounded-full border border-border bg-card px-12 py-8 text-sm transition-colors hover:bg-elevated cursor-pointer'>
+          <button
+            className='rounded-full border border-border bg-card px-12 py-8 text-sm transition-colors hover:bg-elevated cursor-pointer'
+            onClick={() => setOpen(!open)}>
             <Typography text='small'>{user?.username ?? 'Unknown User'}</Typography>
           </button>
         }
@@ -32,10 +36,20 @@ export const UserMenu: FC<IProps> = ({ user, onClickLogout }) => {
         </div>
         <div className='flex flex-col gap-10'>
           <div className='flex flex-col border-b border-border py-8 gap-4'>
-            <LinkButton variant='transparent' href='#'>
+            <LinkButton
+              variant='transparent'
+              href='/profile'
+              onClick={() => {
+                setOpen(false)
+              }}>
               <Typography>Profile</Typography>
             </LinkButton>
-            <LinkButton variant='transparent' href='#'>
+            <LinkButton
+              variant='transparent'
+              href='/settings'
+              onClick={() => {
+                setOpen(false)
+              }}>
               <Typography>Settings</Typography>
             </LinkButton>
           </div>

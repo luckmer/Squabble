@@ -15,11 +15,8 @@ export interface LinkProps extends IProps, VariantProps<typeof link> {}
 
 export const LinkButton: React.FC<LinkProps> = ({ children, href, onClick, ...props }) => (
   <Link
-    onClick={(e) => {
-      if (typeof onClick === 'function') {
-        e.preventDefault()
-        onClick()
-      }
+    onClick={() => {
+      onClick?.()
     }}
     href={href}
     className={link({
