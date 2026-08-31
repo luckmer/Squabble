@@ -1,4 +1,5 @@
-:root body {
+:root html,
+body {
   font-variant-numeric: tabular-nums;
   background: var(--background);
   color: var(--foreground);
@@ -9,8 +10,8 @@
   -webkit-text-size-adjust: 100%;
   padding: 0;
   margin: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   box-sizing: border-box;
 }
 

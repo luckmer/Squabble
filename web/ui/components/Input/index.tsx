@@ -8,6 +8,7 @@ export interface IProps {
   value: string
   type?: string
   error?: string
+  disabled?: boolean
 }
 
 const Input: FC<IProps> = ({
@@ -15,13 +16,14 @@ const Input: FC<IProps> = ({
   placeholder,
   value,
   externalChildren,
+  disabled,
   onChange,
   type = 'text',
   error,
 }) => {
   const id = useId()
   return (
-    <div className='flex flex-col gap-8'>
+    <div className='flex flex-col gap-8 w-full'>
       <div className='flex justify-between'>
         <label htmlFor={id} className='text-[14px] font-400 leading-16 tracking-[0.28px]'>
           {label}
@@ -29,6 +31,7 @@ const Input: FC<IProps> = ({
         {externalChildren}
       </div>
       <input
+        disabled={disabled}
         type={type}
         autoComplete={type === 'password' ? 'new-password' : 'off'}
         placeholder={placeholder}
