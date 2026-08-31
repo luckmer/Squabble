@@ -12,6 +12,8 @@ export class ApiServiceCore {
       method,
       headers: { ...this.headers, ...headers },
       body: body ? JSON.stringify(body) : undefined,
+      credentials: 'include',
+      mode: 'cors',
     })
 
     if (!response.ok) {

@@ -2,6 +2,7 @@ export enum AUTH_ENDPOINTS {
   LOGIN = 'LOGIN',
   REGISTER = 'REGISTER',
   REFRESH = 'REFRESH',
+  VALIDATE = 'VALIDATE',
 }
 
 export enum PASSWORD_ENDPOINTS {

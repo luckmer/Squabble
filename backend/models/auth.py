@@ -21,6 +21,13 @@ class LoginUserRequest(BaseModel):
     password: str
 
 
+class UserPublic(BaseModel):
+    id: str
+    email: str
+    username: str
+    created_at: str
+
+
 class RegisterUserRequest(BaseModel):
     email: EmailStr
     username: str = Field(min_length=3, max_length=50)

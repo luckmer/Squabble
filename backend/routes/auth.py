@@ -1,9 +1,15 @@
-from fastapi import APIRouter, Depends
+from typing import Annotated
 
+from fastapi import APIRouter, Depends, Response
 from database.database import Database, get_db
 from models.auth import LoginUserRequest, RegisterUserRequest, User
 from models.security import TokenResponse
-from services.auth_service import login_user_service, register_user_service
+from security.index import security
+from services.auth_service import (
+    login_user_service,
+    refresh_token_service,
+    register_user_service,
+)
 
 router = APIRouter(prefix="/v1/auth", tags=["auth"])
 
@@ -13,11 +19,25 @@ async def register(data: RegisterUserRequest, db: Database = Depends(get_db)):
     return await register_user_service(db, data)
 
 
-@router.post("/login", response_model=TokenResponse)
-async def login_user(data: LoginUserRequest, db: Database = Depends(get_db)):
-    return await login_user_service(db, data)
+@router.post("/login")
+async def login_user(
+    data: LoginUserRequest,
+    response: Response,
+    db: Database = Depends(get_db),
+):
+    tokens: TokenResponse = await login_user_service(db, data)
+    security.set_auth_cookies(response, tokens)
+    return {"success": True}
 
 
 @router.post("/refresh")
-async def refresh_token(db: Database = Depends(get_db)):
-    return "soon"
+def refresh_token(
+    user_id: Annotated[str, Depends(security.validate_refresh_token)],
+    response: Response,
+):
+    return refresh_token_service(response, user_id)
+
+
+@router.get("/validate")
+def validate_sesstion(_: Annotated[str, Depends(security.validate_token)]):
+    return {"success": True}

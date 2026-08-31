@@ -9,6 +9,7 @@ export const ENDPOINTS = {
   [AUTH_ENDPOINTS.LOGIN]: 'v1/auth/login',
   [AUTH_ENDPOINTS.REGISTER]: 'v1/auth/register',
   [AUTH_ENDPOINTS.REFRESH]: 'v1/auth/refresh',
+  [AUTH_ENDPOINTS.VALIDATE]: 'v1/auth/validate',
 
   [PASSWORD_ENDPOINTS.FORGOT]: 'v1/auth/password/forgot',
   [PASSWORD_ENDPOINTS.RESET]: 'v1/auth/password/reset',

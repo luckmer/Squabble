@@ -2,10 +2,9 @@ import uuid
 from datetime import datetime, timezone
 
 import bcrypt
-from fastapi import HTTPException, status
-
+from fastapi import HTTPException, status, Response
 from database.database import Database
-from models.auth import LoginUserRequest, RegisterUserRequest, User
+from models.auth import LoginUserRequest, RegisterUserRequest, User, UserPublic
 from models.security import TokenResponse
 from schemas.user import get_user_by_email, get_user_by_username, insert_user
 from security.index import security
@@ -44,7 +43,12 @@ async def register_user_service(db: Database, payload: RegisterUserRequest) -> U
         ),
     )
 
-    return new_user
+    return UserPublic(
+        id=new_user.id,
+        email=new_user.email,
+        username=new_user.username,
+        created_at=new_user.created_at,
+    )
 
 
 async def login_user_service(db: Database, payload: LoginUserRequest):
@@ -71,3 +75,14 @@ async def login_user_service(db: Database, payload: LoginUserRequest):
         access_token=security.create_access_token(existing_user.id),
         refresh_token=security.create_refresh_token(existing_user.id),
     )
+
+
+def refresh_token_service(response: Response, user_id: str):
+    tokens = TokenResponse(
+        access_token=security.create_access_token(user_id),
+        refresh_token=security.create_refresh_token(user_id),
+    )
+
+    security.set_auth_cookies(response, tokens)
+
+    return tokens
