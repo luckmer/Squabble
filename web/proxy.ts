@@ -1,7 +1,7 @@
 import { ENDPOINTS } from '@static/enpoints'
 import { jwtDecode } from 'jwt-decode'
-import type { NextRequest } from 'next/server'
-import { NextResponse } from 'next/server'
+import { RequestCookies, ResponseCookies } from 'next/dist/server/web/spec-extension/cookies'
+import { NextRequest, NextResponse } from 'next/server'
 
 const PUBLIC_PATHS = ['/', '/login', '/register']
 const HOMEPAGE_PATH = '/dashboard'
@@ -22,10 +22,6 @@ function redirectHome(request: NextRequest): NextResponse {
   return redirectResponse
 }
 
-function redirectToHomepage(request: NextRequest): NextResponse {
-  return NextResponse.redirect(new URL(HOMEPAGE_PATH, request.url))
-}
-
 export default async function proxy(request: NextRequest) {
   const accessToken = request.cookies.get('access_token')?.value
   const refreshToken = request.cookies.get('refresh_token')?.value
@@ -34,7 +30,7 @@ export default async function proxy(request: NextRequest) {
 
   if (accessToken && !isTokenExpired(accessToken)) {
     if (isPublicPath) {
-      return redirectToHomepage(request)
+      return NextResponse.redirect(new URL(HOMEPAGE_PATH, request.url))
     }
     return NextResponse.next()
   }
@@ -61,9 +57,27 @@ export default async function proxy(request: NextRequest) {
       return isPublicPath ? NextResponse.next() : redirectHome(request)
     }
 
-    const nextResponse = isPublicPath ? redirectToHomepage(request) : NextResponse.next()
-
     const setCookieHeaders = refreshResponse.headers.getSetCookie?.() ?? []
+    const cookieCarrier = new NextResponse()
+    for (const cookie of setCookieHeaders) {
+      cookieCarrier.headers.append('set-cookie', cookie)
+    }
+
+    const responseCookies = new ResponseCookies(cookieCarrier.headers)
+
+    const newRequestHeaders = new Headers(request.headers)
+    const newRequestCookies = new RequestCookies(newRequestHeaders)
+    responseCookies.getAll().forEach((cookie) => newRequestCookies.set(cookie))
+
+    const updatedRequest = new NextRequest(request.url, {
+      ...request,
+      headers: newRequestHeaders,
+    })
+
+    const nextResponse = isPublicPath
+      ? NextResponse.redirect(new URL(HOMEPAGE_PATH, request.url))
+      : NextResponse.next({ request: updatedRequest })
+
     for (const cookie of setCookieHeaders) {
       nextResponse.headers.append('set-cookie', cookie)
     }

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import type { CSSProperties } from 'react'
 
 export interface IProps {
+  onClick?: () => void
   class?: string
   children: React.ReactNode
   style?: CSSProperties
@@ -12,8 +13,14 @@ export interface IProps {
 
 export interface LinkProps extends IProps, VariantProps<typeof link> {}
 
-export const LinkButton: React.FC<LinkProps> = ({ children, href, ...props }) => (
+export const LinkButton: React.FC<LinkProps> = ({ children, href, onClick, ...props }) => (
   <Link
+    onClick={(e) => {
+      if (typeof onClick === 'function') {
+        e.preventDefault()
+        onClick()
+      }
+    }}
     href={href}
     className={link({
       ...props,

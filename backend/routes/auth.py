@@ -30,6 +30,12 @@ async def login_user(
     return {"success": True}
 
 
+@router.post("/logout")
+async def logout_user(response: Response):
+    security.clear_auth_cookies(response)
+    return {"success": True}
+
+
 @router.post("/refresh")
 def refresh_token(
     user_id: Annotated[str, Depends(security.validate_refresh_token)],

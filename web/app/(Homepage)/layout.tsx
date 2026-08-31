@@ -3,10 +3,10 @@ import '@styles/tailwind.css'
 
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
-import Header from './Header'
+import Header from '../Header'
 
 const generalSans = localFont({
-  src: '../common/font/Sans/GeneralSans-Variable.ttf',
+  src: '../../common/font/Sans/GeneralSans-Variable.ttf',
   variable: '--font-general-sans',
   weight: '100 900',
   display: 'swap',
@@ -21,7 +21,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang='en' className={` ${generalSans.variable}  h-full antialiased`}>
       <body className=' flex flex-col'>
-        <Header />
+        <Header user={null} />
         {children}
       </body>
     </html>

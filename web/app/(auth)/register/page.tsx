@@ -1,5 +1,5 @@
 'use client'
-import { registerUser } from '@api/auth'
+import { registerUser } from '@api/auth/client'
 import Register from '@pages/Register'
 
 const RegisterRoot = () => {

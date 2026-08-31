@@ -10,11 +10,6 @@ export const loginUser = async (username: string, password: string): Promise<ILo
   })
 }
 
-export const getUserStatistics = async () => {
-  const api = getApi()
-  return await api.get(ENDPOINTS.STATISTICS)
-}
-
 export const registerUser = async (
   email: string,
   username: string,
@@ -22,4 +17,9 @@ export const registerUser = async (
 ): Promise<IRegisterResponse> => {
   const api = getApi()
   return await api.post<IRegisterResponse>(ENDPOINTS.REGISTER, { email, username, password })
+}
+
+export const logoutUser = async () => {
+  const api = getApi()
+  return await api.post<IRegisterResponse>(ENDPOINTS.LOGOUT)
 }
