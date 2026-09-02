@@ -8,14 +8,22 @@ export interface IProps {
   class?: string
   children: React.ReactNode
   style?: CSSProperties
+  preventDefault?: boolean
   href: string
 }
 
 export interface LinkProps extends IProps, VariantProps<typeof link> {}
 
-export const LinkButton: React.FC<LinkProps> = ({ children, href, onClick, ...props }) => (
+export const LinkButton: React.FC<LinkProps> = ({
+  children,
+  href,
+  preventDefault,
+  onClick,
+  ...props
+}) => (
   <Link
-    onClick={() => {
+    onClick={(e) => {
+      if (preventDefault) e.preventDefault()
       onClick?.()
     }}
     href={href}

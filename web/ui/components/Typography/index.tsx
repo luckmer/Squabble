@@ -1,3 +1,4 @@
+'use client'
 import { typography } from '@common/cva/typography'
 import type { VariantProps } from 'class-variance-authority'
 import type { CSSProperties } from 'react'

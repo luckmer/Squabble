@@ -10,12 +10,19 @@ import { FC } from 'react'
 
 export interface IProps {
   onClickLogout: () => void
+  onClickCreateBoard: () => void
   user: IPublicUser | null
   pathname: string
   isAuthenticated: boolean
 }
 
-const HeaderPage: FC<IProps> = ({ pathname, isAuthenticated, user, onClickLogout }) => {
+const HeaderPage: FC<IProps> = ({
+  pathname,
+  isAuthenticated,
+  user,
+  onClickLogout,
+  onClickCreateBoard,
+}) => {
   if (pathname === '/login' || pathname === '/register') {
     return null
   }
@@ -51,7 +58,7 @@ const HeaderPage: FC<IProps> = ({ pathname, isAuthenticated, user, onClickLogout
         ) : (
           <div className='flex w-full flex-row justify-between'>
             <div className='flex flex-row w-full'>
-              <HeaderNavigation pathname={pathname} />
+              <HeaderNavigation pathname={pathname} onClickCreateBoard={onClickCreateBoard} />
             </div>
             <div className='flex flex-row gap-12'>
               <UserMenu user={user} onClickLogout={onClickLogout} />

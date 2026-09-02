@@ -28,7 +28,8 @@
       "@static/*": ["./static/*"],
       "@utils/*": ["./utils/*"],
       "@store/*": ["./store/*"],
-      "@libs/*": ["./libs/*"]
+      "@libs/*": ["./libs/*"],
+      "@json/*": ["./json/*"]
     }
   },
   "include": [

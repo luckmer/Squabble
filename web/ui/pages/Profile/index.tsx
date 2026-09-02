@@ -33,15 +33,7 @@ const Profile: FC<IProps> = ({ user }) => {
           <Card stats='0 %' title='win rate' />
           <Card stats='0' title='steak' />
         </section>
-        <section className='py-24 flex flex-col gap-12 h-full'>
-          <div className='flex flex-row items-center justify-between w-full'>
-            <Typography text='body' medium>
-              Guess distribution
-            </Typography>
-          </div>
-          <div className='items-center justify-center flex flex-col gap-24 rounded-2xl border border-border bg-card p-16 shadow-soft transition-colors hover:border-input h-full'></div>
-        </section>
-        <section className='py-24 flex flex-col gap-12 h-full'>
+        <section className='py-24 flex flex-col gap-12 h-full min-h-[400px]'>
           <div className='flex flex-row items-center justify-between w-full'>
             <Typography text='body' medium>
               Recent games

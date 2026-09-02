@@ -1,3 +1,4 @@
+'use client'
 import { cva } from 'class-variance-authority'
 
 export const typography = cva('not-italic select-none', {
@@ -68,6 +69,9 @@ export const typography = cva('not-italic select-none', {
     },
     medium: {
       true: 'font-medium',
+    },
+    nowrap: {
+      true: 'whitespace-nowrap',
     },
     uppercase: {
       true: 'uppercase',

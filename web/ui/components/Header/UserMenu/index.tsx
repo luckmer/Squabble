@@ -18,12 +18,14 @@ export const UserMenu: FC<IProps> = ({ user, onClickLogout }) => {
   const [open, setOpen] = useState(false)
 
   return (
-    <Popover open={open}>
+    <Popover
+      open={open}
+      onOpenChange={() => {
+        setOpen((prev) => !prev)
+      }}>
       <PopoverTrigger
         render={
-          <button
-            className='rounded-full border border-border bg-card px-12 py-8 text-sm transition-colors hover:bg-elevated cursor-pointer'
-            onClick={() => setOpen(!open)}>
+          <button className='rounded-full border border-border bg-card px-12 py-8 text-sm transition-colors hover:bg-elevated cursor-pointer'>
             <Typography text='small'>{user?.username ?? 'Unknown User'}</Typography>
           </button>
         }
@@ -54,6 +56,7 @@ export const UserMenu: FC<IProps> = ({ user, onClickLogout }) => {
             </LinkButton>
           </div>
           <LinkButton
+            preventDefault
             onClick={onClickLogout}
             variant='transparent'
             href='/'
