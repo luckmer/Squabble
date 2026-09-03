@@ -1,6 +1,6 @@
 import aiosqlite
 
-from schemas.user import user_creation_table
+from .migrations import user_creation_table
 
 
 class Database:
@@ -38,7 +38,6 @@ class Database:
             self.cursor = None
 
     async def execute_query(self, query, params=()):
-        await self.connect()
         await self.cursor.execute(query, params)
         await self.database.commit()
 

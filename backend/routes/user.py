@@ -2,9 +2,9 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends
 
-from database.database import Database, get_db
+from database.database import Database
 from security.index import security
-from services.user_service import get_user_profile_service, get_user_statistics_service
+from services import get_user_service, UserService
 
 router = APIRouter(prefix="/v1/user", tags=["user"])
 
@@ -12,14 +12,14 @@ router = APIRouter(prefix="/v1/user", tags=["user"])
 @router.get("/statistics")
 async def get_user_statistics(
     user_id: Annotated[str, Depends(security.validate_token)],
-    db: Database = Depends(get_db),
+    user_service: UserService = Depends(get_user_service),
 ):
-    return await get_user_statistics_service(db, user_id)
+    return await user_service.get_user_statistics(user_id)
 
 
 @router.get("/profile")
 async def get_user_profile(
     user_id: Annotated[str, Depends(security.validate_token)],
-    db: Database = Depends(get_db),
+    user_service: UserService = Depends(get_user_service),
 ):
-    return await get_user_profile_service(db, user_id)
+    return await user_service.get_user_profile(user_id)

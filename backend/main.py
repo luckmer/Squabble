@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from database.database import db
-from routes import auth, health, password, user
+from routes import auth_router, health_router, password_router, user_router
 
 
 @asynccontextmanager
@@ -25,7 +25,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(auth.router)
-app.include_router(password.router)
-app.include_router(health.router)
-app.include_router(user.router)
+app.include_router(auth_router)
+app.include_router(password_router)
+app.include_router(health_router)
+app.include_router(user_router)

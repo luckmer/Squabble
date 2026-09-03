@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 
-from database.database import Database, get_db
+from services import PasswordService, get_password_service
 
 router = APIRouter(prefix="/v1/auth/pasword", tags=["password"])
 
@@ -8,12 +8,16 @@ router = APIRouter(prefix="/v1/auth/pasword", tags=["password"])
 @router.post(
     "/forgot",
 )
-async def forgot_password(db: Database = Depends(get_db)):
+async def forgot_password(
+    password_service: PasswordService = Depends(get_password_service),
+):
     pass
 
 
 @router.post(
     "/reset",
 )
-async def reset_password(db: Database = Depends(get_db)):
+async def reset_password(
+    password_service: PasswordService = Depends(get_password_service),
+):
     pass

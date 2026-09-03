@@ -1,10 +1,11 @@
 from datetime import datetime, timedelta, timezone
 from typing import Annotated
+
 import jwt
 from fastapi import Cookie, HTTPException, Response, status
 
 from config.index import env
-from models.security import TokenResponse
+from schemas import TokenResponse
 
 
 class Security:
