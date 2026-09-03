@@ -15,6 +15,8 @@ const RoundOverModalRoot = () => {
       wordsFound={wordsFound}
       onClickCloseModal={() => {
         setIsRoundOverModalOpen(false)
+        const newBoard = getGame().startGame(4)
+        setGame(newBoard)
       }}
       onClickGenerateNewBoard={() => {
         setIsRoundOverModalOpen(false)
