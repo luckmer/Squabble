@@ -15,15 +15,23 @@ type WordStatus = 'correct' | 'incorrect' | 'duplicate' | null
 export interface IProps {
   onClickFinishBoard: () => void
   onClickGenerateNewBoard: () => void
+  onClickSetFoundWord: (word: string) => void
+  wordsFound: string[]
   board: string[][]
   answers: string[]
 }
 
-const Play: FC<IProps> = ({ board, answers, onClickFinishBoard, onClickGenerateNewBoard }) => {
+const Play: FC<IProps> = ({
+  board,
+  answers,
+  wordsFound,
+  onClickFinishBoard,
+  onClickGenerateNewBoard,
+  onClickSetFoundWord,
+}) => {
   const [status, setStatus] = useState<WordStatus>(null)
   const [hint, setHint] = useState('')
   const [coordinates, setCoordinates] = useState<number[][]>([])
-  const [wordsFound, setWordsFound] = useState<string[]>([])
   const [isMouseDown, setIsMouseDown] = useState(false)
   const [isClearing, setIsClearing] = useState(false)
   const [prevBoard, setPrevBoard] = useState(board)
@@ -35,7 +43,6 @@ const Play: FC<IProps> = ({ board, answers, onClickFinishBoard, onClickGenerateN
   if (JSON.stringify(board) !== JSON.stringify(prevBoard)) {
     setPrevBoard(board)
     setCoordinates([])
-    setWordsFound([])
     setStatus(null)
     setIsMouseDown(false)
     setIsClearing(false)
@@ -128,7 +135,7 @@ const Play: FC<IProps> = ({ board, answers, onClickFinishBoard, onClickGenerateN
     const isDuplicate = isValid && wordsFound.includes(word)
 
     if (isValid && !isDuplicate) {
-      setWordsFound((prev) => [...prev, word])
+      onClickSetFoundWord(word)
       setStatus('correct')
     } else if (isDuplicate) {
       setStatus('duplicate')

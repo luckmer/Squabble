@@ -38,7 +38,6 @@ const WordsPanel: FC<IProps> = ({ answers, wordsFound }) => {
       <section className='flex flex-row justify-between gap-8 mt-16'>
         {Object.entries(answersByLength).map(([length, words]) => {
           const foundCount = wordsByLength[Number(length)]?.length ?? 0
-
           return (
             <div
               key={length}

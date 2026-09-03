@@ -2,24 +2,34 @@
 import { getGame } from '@libs/GameService'
 import Play from '@pages/Play'
 import { gameSelector } from '@store/game/selector'
+import { uiSelector } from '@store/ui/selector'
+import { useEffect } from 'react'
 
 const PlayRoot = () => {
-  const setGame = gameSelector().setGame
-  const board = gameSelector().game
+  const { game: board, setGame, onClickSetFoundWord, wordsFound } = gameSelector()
+  const { setIsRoundOverModalOpen } = uiSelector()
 
-  if (!board.board.length) {
-    const board = getGame().startGame(4)
-    setGame(board)
-  }
+  useEffect(() => {
+    if (!board.board.length) {
+      const newBoard = getGame().startGame(4)
+      setGame(newBoard)
+    }
+  }, [board.board.length, setGame])
 
   return (
     <Play
       board={board.board}
       answers={board.answers}
-      onClickFinishBoard={() => {}}
+      wordsFound={wordsFound}
+      onClickFinishBoard={() => {
+        setIsRoundOverModalOpen(true)
+      }}
+      onClickSetFoundWord={(word) => {
+        onClickSetFoundWord(word)
+      }}
       onClickGenerateNewBoard={() => {
-        const board = getGame().startGame(4)
-        setGame(board)
+        const newBoard = getGame().startGame(4)
+        setGame(newBoard)
       }}
     />
   )
