@@ -33,9 +33,9 @@ const WordsPanel: FC<IProps> = ({ answers, wordsFound }) => {
   }, [answers])
 
   return (
-    <aside className='rounded-2xl border border-border bg-card p-16 shadow-soft h-full flex flex-col min-h-0 overflow-hidden'>
+    <aside className='rounded-2xl border border-border bg-card p-16 shadow-soft h-full flex flex-col min-h-[400px] overflow-hidden'>
       <Typography medium>Words found</Typography>
-      <section className='flex flex-row justify-between gap-8 mt-16'>
+      <section className='mt-16 grid w-full grid-cols-[repeat(auto-fit,minmax(90px,1fr))] gap-8'>
         {Object.entries(answersByLength).map(([length, words]) => {
           const foundCount = wordsByLength[Number(length)]?.length ?? 0
           return (

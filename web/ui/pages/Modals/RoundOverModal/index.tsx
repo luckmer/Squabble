@@ -9,7 +9,7 @@ import { FC, useMemo } from 'react'
 import { IoReloadOutline } from 'react-icons/io5'
 
 export interface IProps {
-  onClickCloseModal: () => void
+  onClickGoToDashboard: () => void
   onClickGenerateNewBoard: () => void
   isOpen: boolean
   answers: string[]
@@ -20,7 +20,7 @@ const RoundOverModal: FC<IProps> = ({
   isOpen,
   answers,
   wordsFound,
-  onClickCloseModal,
+  onClickGoToDashboard,
   onClickGenerateNewBoard,
 }) => {
   const answersByLength = useMemo(() => {
@@ -119,7 +119,7 @@ const RoundOverModal: FC<IProps> = ({
             href='/dashboard'
             class='w-full rounded-md!'
             variant='dark'
-            onClick={onClickCloseModal}>
+            onClick={onClickGoToDashboard}>
             <Typography>Back to dashboard</Typography>
           </LinkButton>
         </section>

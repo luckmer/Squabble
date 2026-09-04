@@ -1,4 +1,6 @@
 'use client'
+
+import { IRecentGame } from '@interfaces/api/recentGames/interfaces'
 import { create } from 'zustand'
 
 export interface IGame {
@@ -9,30 +11,52 @@ export interface IGame {
 interface IGameState {
   game: IGame
   wordsFound: string[]
+  currentSession: IRecentGame | null
   setGame: (game: IGame) => void
+  setCurrentSession: (session: IRecentGame) => void
   onClickSetFoundWord: (word: string) => void
+  reset: () => void
+}
+
+const defaultGame: IGame = {
+  board: [],
+  answers: [],
 }
 
 export const gameStore = create<IGameState>((set) => ({
+  game: defaultGame,
   wordsFound: [],
-  game: {
-    board: [],
-    answers: [],
-  },
+  currentSession: null,
 
-  onClickSetFoundWord: (word) =>
-    set((state) => {
-      if (state.wordsFound.includes(word)) return state
-      const wordsFound = [...state.wordsFound, word]
-      return { wordsFound }
-    }),
+  reset() {
+    set({
+      game: defaultGame,
+      wordsFound: [],
+      currentSession: null,
+    })
+  },
 
   setGame: (game) =>
     set({
+      game,
       wordsFound: [],
-      game: {
-        board: game.board,
-        answers: game.answers,
-      },
+      currentSession: null,
+    }),
+
+  setCurrentSession: (currentSession: IRecentGame) =>
+    set(() => {
+      return {
+        currentSession,
+      }
+    }),
+
+  onClickSetFoundWord: (word) =>
+    set((state) => {
+      if (state.wordsFound.includes(word)) {
+        return state
+      }
+      return {
+        wordsFound: [...state.wordsFound, word],
+      }
     }),
 }))

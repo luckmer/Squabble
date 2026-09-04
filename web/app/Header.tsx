@@ -1,9 +1,11 @@
 'use client'
-import { logoutUser } from '@api/auth/client'
+
+import { logoutUser } from '@api/auth/server'
 import { IPublicUser } from '@interfaces/api/user/interfaces'
-import { getGame } from '@libs/GameService'
 import Header from '@pages/Header'
 import { gameSelector } from '@store/game/selector'
+import { uiSelector } from '@store/ui/selector'
+import { userSelector } from '@store/user/selector'
 import { usePathname, useRouter } from 'next/navigation'
 import { FC } from 'react'
 
@@ -12,16 +14,24 @@ export interface IProps {
 }
 
 const HeaderRoot: FC<IProps> = ({ user }) => {
-  const setGame = gameSelector().setGame
-  const gameBoard = gameSelector().game
+  const board = gameSelector.use.game()
+  const boardReset = gameSelector.use.reset()
+  const recentGamesReset = gameSelector.use.reset()
+  const uiReset = uiSelector.use.reset()
+  const userReset = userSelector.use.reset()
+  const wordsFound = gameSelector.use.wordsFound()
 
   const pathname = usePathname()
-  const navigate = useRouter()
+  const router = useRouter()
 
-  const onClickLogout = async () => {
+  const handleLogout = async () => {
     try {
       await logoutUser()
-      navigate.push('/')
+      boardReset()
+      recentGamesReset()
+      uiReset()
+      userReset()
+      router.push('/')
     } catch {}
   }
 
@@ -30,16 +40,9 @@ const HeaderRoot: FC<IProps> = ({ user }) => {
       pathname={pathname}
       isAuthenticated={user !== null}
       user={user}
-      onClickCreateBoard={() => {
-        if (gameBoard.board.length) {
-          return
-        }
-        const board = getGame().startGame(4)
-        setGame(board)
-      }}
-      onClickLogout={async () => {
-        onClickLogout().catch(() => {})
-      }}
+      wordsFound={wordsFound.length}
+      answers={board.answers.length}
+      onClickLogout={handleLogout}
     />
   )
 }

@@ -10,7 +10,7 @@ const Account = () => {
         <Typography text='body' medium>
           Account
         </Typography>
-        <div className='flex w-full flex-row gap-12'>
+        <div className='flex w-full flex-row gap-12 max-[900px]:flex-col'>
           <div className='flex flex-row items-end justify-center gap-12 w-full'>
             <Input
               label='Username'
@@ -34,7 +34,7 @@ const Account = () => {
             error={undefined}
           />
         </div>
-        <div className='flex flex-row gap-12'>
+        <div className='flex flex-row gap-12 w-full max-[900px]:flex-col'>
           <Button variant='dark'>
             <Typography>Change password</Typography>
           </Button>

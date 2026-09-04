@@ -19,6 +19,11 @@ class RecentGamesResponse(BaseModel):
     next_cursor: str | None
 
 
+class RecentGamesStats(BaseModel):
+    games_played: int
+    solve_rate: float
+
+
 class RecentGameCreate(BaseModel):
     opponent_name: str
     game_mode: str

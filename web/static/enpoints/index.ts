@@ -2,6 +2,7 @@ import {
   AUTH_ENDPOINTS,
   HEALTH_ENDPOINTS,
   PASSWORD_ENDPOINTS,
+  RECENT_GAMES_ENDPOINTS,
   USER_ENDPOINTS,
 } from '@interfaces/endpoints/enums'
 
@@ -19,4 +20,7 @@ export const ENDPOINTS = {
 
   [USER_ENDPOINTS.STATISTICS]: 'v1/user/statistics',
   [USER_ENDPOINTS.PROFILE]: 'v1/user/profile',
+
+  [RECENT_GAMES_ENDPOINTS.RECENT_GAMES]: 'v1/recent-games',
+  [RECENT_GAMES_ENDPOINTS.STATS]: 'v1/recent-games/stats',
 }

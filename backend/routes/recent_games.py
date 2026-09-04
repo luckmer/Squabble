@@ -28,6 +28,16 @@ async def get_recent_games(
     )
 
 
+@router.get("/stats")
+async def get_recent_games_stats(
+    user_id: Annotated[str, Depends(security.validate_token)],
+    recent_games_service: Annotated[
+        RecentGamesService, Depends(get_recent_games_service)
+    ],
+):
+    return await recent_games_service.get_recent_game_stats(user_id)
+
+
 @router.post("/")
 async def create_recent_game(
     user_id: Annotated[str, Depends(security.validate_token)],

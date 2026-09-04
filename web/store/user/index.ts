@@ -7,6 +7,7 @@ interface UserState {
   status: 'authenticated' | 'unauthenticated'
 
   setUser: (user: IPublicUser | null) => void
+  reset: () => void
 }
 
 export const userStore = create<UserState>((set) => ({
@@ -16,5 +17,7 @@ export const userStore = create<UserState>((set) => ({
     board: [],
     answers: [],
   },
+
+  reset: () => set({ user: null, status: 'unauthenticated' }),
   setUser: (user) => set({ user, status: user !== null ? 'authenticated' : 'unauthenticated' }),
 }))

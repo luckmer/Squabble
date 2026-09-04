@@ -7,3 +7,8 @@ export interface IRegisterResponse {
   username: string
   created_at: string
 }
+
+export interface IRefreshToken {
+  access_token: string
+  refresh_token: string
+}

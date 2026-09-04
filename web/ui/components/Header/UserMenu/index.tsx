@@ -40,11 +40,11 @@ export const UserMenu: FC<IProps> = ({ user, onClickLogout }) => {
           <div className='flex flex-col border-b border-border py-8 gap-4'>
             <LinkButton
               variant='transparent'
-              href='/profile'
+              href='/dashboard'
               onClick={() => {
                 setOpen(false)
               }}>
-              <Typography>Profile</Typography>
+              <Typography>Dashboard</Typography>
             </LinkButton>
             <LinkButton
               variant='transparent'

@@ -21,6 +21,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children, modals }: LayoutProps<'/'>) {
   const user = await getUserProfile()
+
   return (
     <html lang='en' className={` ${generalSans.variable}  h-full antialiased`}>
       <body className=' flex flex-col'>

@@ -5,6 +5,7 @@ from fastapi import Depends
 from database import Database, get_db
 from database.query.recent_games import (
     get_user_recent_games,
+    get_user_recent_games_stats,
     insert_recent_game,
 )
 from schemas import RecentGame, RecentGameCreate
@@ -20,6 +21,7 @@ class RecentGamesRepository:
         cursor: int | None,
         limit: int,
     ) -> list[RecentGame]:
+
         if self.db.cursor is None or self.db.database is None:
             raise RuntimeError("Database is not connected.")
 
@@ -43,6 +45,16 @@ class RecentGamesRepository:
             )
             for row in rows
         ]
+
+    async def get_recent_game_stats(self, user_id: str):
+        if self.db.cursor is None or self.db.database is None:
+            raise RuntimeError("Database is not connected.")
+
+        data = await self.db.cursor.execute(
+            get_user_recent_games_stats,
+            (user_id,),
+        )
+        return await data.fetchone()
 
     async def create_recent_game(
         self, recent_game: RecentGameCreate, user_id: str

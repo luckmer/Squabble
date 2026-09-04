@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 
 export default function LoginRoot() {
   const navigate = useRouter()
-  const setUser = userSelector().setUser
+  const setUser = userSelector.use.setUser()
 
   const handleSubmit = async (username: string, password: string) => {
     try {

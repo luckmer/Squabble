@@ -4,17 +4,15 @@ import { Typography } from '@components/Typography'
 import { FC } from 'react'
 
 export interface IProps {
-  onClickCreateBoard: () => void
   pathname: string
 }
 
-const HeaderNavigation: FC<IProps> = ({ pathname, onClickCreateBoard }) => {
+const HeaderNavigation: FC<IProps> = ({ pathname }) => {
   return (
     <div className='flex items-center justify-center w-full gap-12'>
       <LinkButton
         variant='transparent'
         href='/play'
-        onClick={onClickCreateBoard}
         class={pathname === '/play' ? 'bg-accent' : ''}>
         <Typography text='small' color='mutedForeground' medium>
           Play
@@ -36,14 +34,7 @@ const HeaderNavigation: FC<IProps> = ({ pathname, onClickCreateBoard }) => {
           Leaderboard
         </Typography>
       </LinkButton>
-      <LinkButton
-        variant='transparent'
-        href='/profile'
-        class={pathname === '/profile' ? 'bg-accent' : ''}>
-        <Typography text='small' color='mutedForeground' medium>
-          Profile
-        </Typography>
-      </LinkButton>
+
       <LinkButton
         variant='transparent'
         href='/settings'

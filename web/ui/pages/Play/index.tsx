@@ -183,13 +183,17 @@ const Play: FC<IProps> = ({
       })
   }, [gameboard])
 
+  const isBoardSolved = useMemo(() => {
+    return wordsFound.length === answers.length
+  }, [wordsFound, answers])
+
   return (
     <main
       className='flex flex-col h-full overflow-y-auto'
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}>
       <section className='mx-auto max-w-6xl w-full py-40 px-24 h-full flex flex-col'>
-        <div className='grid grid-cols-[minmax(0,1fr)_20rem] gap-12 h-full'>
+        <div className='grid grid-cols-[minmax(0,1fr)_20rem] gap-12 h-full max-[1000px]:grid-cols-1 max-[1000px]:gap-48'>
           <section className='flex flex-col items-center gap-24 w-full'>
             <div className='h-fit'>
               <Typography
@@ -269,7 +273,8 @@ const Play: FC<IProps> = ({
                   <Typography color='primary'>Clear</Typography>
                 </Button>
                 <Button
-                  disabled={isDisabled}
+                  onClick={onClickFinishBoard}
+                  disabled={isDisabled || !isBoardSolved}
                   class='w-full flex flex-row gap-12 items-center justify-center'>
                   <IoCheckmark color='#000' />
                   <Typography color='black'>Submit</Typography>

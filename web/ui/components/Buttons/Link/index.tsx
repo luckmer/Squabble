@@ -1,3 +1,4 @@
+'use client'
 import { link } from '@common/cva/link'
 import type { VariantProps } from 'class-variance-authority'
 import Link from 'next/link'
