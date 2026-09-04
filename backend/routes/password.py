@@ -1,3 +1,5 @@
+from typing import Annotated
+
 from fastapi import APIRouter, Depends
 
 from services import PasswordService, get_password_service
@@ -9,7 +11,7 @@ router = APIRouter(prefix="/v1/auth/pasword", tags=["password"])
     "/forgot",
 )
 async def forgot_password(
-    password_service: PasswordService = Depends(get_password_service),
+    password_service: Annotated[PasswordService, Depends(get_password_service)],
 ):
     pass
 
@@ -18,6 +20,6 @@ async def forgot_password(
     "/reset",
 )
 async def reset_password(
-    password_service: PasswordService = Depends(get_password_service),
+    password_service: Annotated[PasswordService, Depends(get_password_service)], ś
 ):
     pass

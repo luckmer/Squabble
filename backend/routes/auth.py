@@ -41,6 +41,7 @@ def refresh_token(
     response: Response,
     auth_service: Annotated[AuthService, Depends(get_auth_service)],
 ):
+
     return auth_service.token_refresh(response, user_id)
 
 

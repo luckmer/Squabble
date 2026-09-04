@@ -2,9 +2,8 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends
 
-from database.database import Database
 from security.index import security
-from services import get_user_service, UserService
+from services import UserService, get_user_service
 
 router = APIRouter(prefix="/v1/user", tags=["user"])
 

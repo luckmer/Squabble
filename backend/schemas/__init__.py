@@ -5,6 +5,7 @@ from .auth import (
     User,
     UserPublic,
 )
+from .recent_games import RecentGame, RecentGameCreate, RecentGamesResponse
 from .security import TokenResponse
 
 __all__ = [
@@ -15,4 +16,7 @@ __all__ = [
     "UserPublic",
     "TokenResponse",
     "TokenResponse",
+    "RecentGame",
+    "RecentGameCreate",
+    "RecentGamesResponse",
 ]

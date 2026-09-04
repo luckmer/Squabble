@@ -4,7 +4,13 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from database.database import db
-from routes import auth_router, health_router, password_router, user_router
+from routes import (
+    auth_router,
+    health_router,
+    password_router,
+    recent_games_router,
+    user_router,
+)
 
 
 @asynccontextmanager
@@ -29,3 +35,4 @@ app.include_router(auth_router)
 app.include_router(password_router)
 app.include_router(health_router)
 app.include_router(user_router)
+app.include_router(recent_games_router)

@@ -1,6 +1,5 @@
 from typing import Annotated
 
-import bcrypt
 from fastapi import Depends
 
 from database import Database
@@ -19,17 +18,22 @@ class UserRepository:
         self.db = db
 
     async def get_user_by_email(self, email: str):
+        if self.db.cursor is None or self.db.database is None:
+            raise RuntimeError("Database is not connected.")
+
         data = await self.db.cursor.execute(get_user_by_email, (email,))
         return await data.fetchone()
 
     async def get_user_by_id(self, id: str):
+        if self.db.cursor is None or self.db.database is None:
+            raise RuntimeError("Database is not connected.")
         data = await self.db.cursor.execute(get_user_by_id, (id,))
         return await data.fetchone()
 
-    def validate_password(self, password: bytes, hashed_password: bytes):
-        return bcrypt.checkpw(password, hashed_password)
-
     async def get_user_by_username(self, username: str):
+        if self.db.cursor is None or self.db.database is None:
+            raise RuntimeError("Database is not connected.")
+
         data = await self.db.cursor.execute(get_user_by_username, (username,))
         return await data.fetchone()
 

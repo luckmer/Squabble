@@ -60,7 +60,7 @@ class AuthService:
 
         existing_user = User(**user)
 
-        if not self.user_repo.validate_password(
+        if not bcrypt.checkpw(
             payload.password.encode(), existing_user.hashed_password.encode()
         ):
             raise HTTPException(

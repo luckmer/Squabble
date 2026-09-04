@@ -1,10 +1,13 @@
+from typing import Any, Sequence
+
 import aiosqlite
 
-from .migrations import user_creation_table
+from .migrations import recent_games_table, user_creation_table
 
 
 class Database:
-    _instance = None
+    _instance: Database | None = None
+    _initialized: bool
 
     def __new__(cls):
         if cls._instance is None:
@@ -12,14 +15,15 @@ class Database:
             cls._instance._initialized = False
         return cls._instance
 
-    def __init__(self):
+    def __init__(self) -> None:
         if self._initialized:
             return
+
         self.database: aiosqlite.Connection | None = None
         self.cursor: aiosqlite.Cursor | None = None
         self._initialized = True
 
-    async def connect(self):
+    async def connect(self) -> None:
         if self.database is not None:
             return
         self.database = await aiosqlite.connect("database.db")
@@ -27,17 +31,22 @@ class Database:
         self.cursor = await self.database.cursor()
         await self.init_tables()
 
-    async def init_tables(self):
+    async def init_tables(self) -> None:
+        if self.cursor is None or self.database is None:
+            raise RuntimeError("Database is not connected.")
         await self.cursor.execute(user_creation_table)
+        await self.cursor.execute(recent_games_table)
         await self.database.commit()
 
-    async def close(self):
+    async def close(self) -> None:
         if self.database is not None:
             await self.database.close()
             self.database = None
             self.cursor = None
 
-    async def execute_query(self, query, params=()):
+    async def execute_query(self, query: str, params: Sequence[Any] = ()) -> None:
+        if self.cursor is None or self.database is None:
+            raise RuntimeError("Database is not connected.")
         await self.cursor.execute(query, params)
         await self.database.commit()
 
