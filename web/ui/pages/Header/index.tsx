@@ -80,10 +80,10 @@ const HeaderPage: FC<IProps> = ({
             </div>
           ) : (
             <div className='flex w-full flex-row justify-between'>
-              <div className='flex flex-row w-full'>
+              <div className='flex flex-row w-full max-[900px]:hidden'>
                 <HeaderNavigation pathname={pathname} />
               </div>
-              <div className='flex flex-row gap-12'>
+              <div className='flex flex-row gap-12 max-[900px]:w-full justify-end'>
                 <UserMenu user={user} onClickLogout={onClickLogout} />
               </div>
             </div>

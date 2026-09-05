@@ -1,4 +1,5 @@
-:root html,
+:root,
+html,
 body {
   font-variant-numeric: tabular-nums;
   background: var(--background);
@@ -13,11 +14,6 @@ body {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-}
-
-#root {
-  width: 100%;
-  height: 100%;
 }
 
 ::-webkit-scrollbar {

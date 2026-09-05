@@ -33,7 +33,7 @@ const WordsPanel: FC<IProps> = ({ answers, wordsFound }) => {
   }, [answers])
 
   return (
-    <aside className='rounded-2xl border border-border bg-card p-16 shadow-soft h-full flex flex-col min-h-[400px] overflow-hidden'>
+    <aside className='rounded-2xl border border-border bg-card p-16 shadow-soft  flex flex-col min-h-[400px] overflow-hidden'>
       <Typography medium>Words found</Typography>
       <section className='mt-16 grid w-full grid-cols-[repeat(auto-fit,minmax(90px,1fr))] gap-8'>
         {Object.entries(answersByLength).map(([length, words]) => {
