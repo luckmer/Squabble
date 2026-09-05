@@ -6,10 +6,11 @@ import Account from './Account'
 
 export interface IProps {
   onClickDeleteAccount: () => Promise<boolean>
+  onClickChangePassword: () => void
   user: IPublicUser | null
 }
 
-const Settings: FC<IProps> = ({ onClickDeleteAccount, user }) => {
+const Settings: FC<IProps> = ({ onClickDeleteAccount, onClickChangePassword, user }) => {
   return (
     <main className='flex flex-col h-full overflow-hidden'>
       <div className='overflow-y-auto min-h-0 w-full '>
@@ -26,7 +27,11 @@ const Settings: FC<IProps> = ({ onClickDeleteAccount, user }) => {
               </div>
             </div>
           </section>
-          <Account onClickDeleteAccount={onClickDeleteAccount} user={user} />
+          <Account
+            onClickDeleteAccount={onClickDeleteAccount}
+            onClickChangePassword={onClickChangePassword}
+            user={user}
+          />
           <section className='mt-32 flex flex-col gap-12 '>
             <div className='justify-center flex flex-col gap-24 rounded-2xl border border-border bg-card p-20 shadow-soft transition-colors hover:border-input'>
               <Typography text='body' medium>

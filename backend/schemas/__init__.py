@@ -5,6 +5,7 @@ from .auth import (
     User,
     UserPublic,
 )
+from .password import ChangePasswordRequest
 from .recent_games import (
     RecentGame,
     RecentGameCreate,
@@ -25,4 +26,5 @@ __all__ = [
     "RecentGame",
     "RecentGameCreate",
     "RecentGamesResponse",
+    "ChangePasswordRequest",
 ]

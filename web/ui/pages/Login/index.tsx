@@ -104,19 +104,6 @@ const Login: FC<IProps> = ({ onSubmit }) => {
                   }}
                   value={field.value}
                   error={errors.password?.message}
-                  externalChildren={
-                    <LinkButton
-                      variant='none'
-                      href='/reset'
-                      class='flex flex-row items-center gap-8 group'>
-                      <Typography
-                        text='small'
-                        color='mutedForeground'
-                        class='group-hover:text-primary!'>
-                        Forgot password?
-                      </Typography>
-                    </LinkButton>
-                  }
                 />
               )}
             />

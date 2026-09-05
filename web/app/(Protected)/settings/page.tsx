@@ -14,6 +14,7 @@ const SettingsRoot = () => {
   const recentGamesReset = gameSelector.use.reset()
   const uiReset = uiSelector.use.reset()
   const userReset = userSelector.use.reset()
+  const setIsChangePasswordModalOpen = uiSelector.use.setIsChangePasswordModalOpen()
 
   const handleSubmit = async () => {
     try {
@@ -32,6 +33,9 @@ const SettingsRoot = () => {
   return (
     <Settings
       user={user}
+      onClickChangePassword={() => {
+        setIsChangePasswordModalOpen(true)
+      }}
       onClickDeleteAccount={() => {
         const promise = handleSubmit()
         toast.promise(promise, {

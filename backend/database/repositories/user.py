@@ -10,6 +10,7 @@ from database.query.user import (
     get_user_by_id,
     get_user_by_username,
     insert_user,
+    update_password,
 )
 from schemas import User
 
@@ -55,6 +56,12 @@ class UserRepository:
         return await self.db.execute_query(
             delete_user,
             (user_id,),
+        )
+
+    async def update_password(self, user_id: str, new_password: str):
+        return await self.db.execute_query(
+            update_password,
+            (new_password, user_id),
         )
 
 

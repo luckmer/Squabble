@@ -3,7 +3,6 @@ from fastapi import Response
 from schemas import (
     TokenResponse,
 )
-
 from security import security
 
 

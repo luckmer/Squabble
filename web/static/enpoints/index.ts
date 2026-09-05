@@ -16,7 +16,7 @@ export const ENDPOINTS = {
   [SESSION_ENDPOINTS.VALIDATE]: 'v1/session/validate',
 
   [PASSWORD_ENDPOINTS.FORGOT]: 'v1/auth/password/forgot',
-  [PASSWORD_ENDPOINTS.RESET]: 'v1/auth/password/reset',
+  [PASSWORD_ENDPOINTS.UPDATE]: 'v1/auth/password/update',
 
   [HEALTH_ENDPOINTS.HEALTH]: 'v1/health/health',
 

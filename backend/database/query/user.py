@@ -19,6 +19,12 @@ insert_user = """
   VALUES (?, ?, ?, ?, ?)
 """
 
+update_password = """
+  UPDATE users
+  SET hashed_password = ?
+  WHERE id = ?
+"""
+
 delete_user = """
   DELETE FROM users WHERE id = ?
 """

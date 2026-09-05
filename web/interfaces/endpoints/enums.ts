@@ -13,7 +13,7 @@ export enum SESSION_ENDPOINTS {
 
 export enum PASSWORD_ENDPOINTS {
   FORGOT = 'FORGOT',
-  RESET = 'RESET',
+  UPDATE = 'UPDATE',
 }
 
 export enum HEALTH_ENDPOINTS {

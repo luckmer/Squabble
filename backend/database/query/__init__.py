@@ -10,6 +10,7 @@ from .user import (
     get_user_by_id,
     get_user_by_username,
     insert_user,
+    update_password,
 )
 
 __all__ = [
@@ -22,4 +23,5 @@ __all__ = [
     "insert_user",
     "delete_user",
     "delete_user_recent_games",
+    "update_password",
 ]

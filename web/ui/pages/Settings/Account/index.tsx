@@ -7,10 +7,11 @@ import { FC, useState } from 'react'
 
 export interface IProps {
   onClickDeleteAccount: () => Promise<boolean>
+  onClickChangePassword: () => void
   user: IPublicUser | null
 }
 
-const Account: FC<IProps> = ({ onClickDeleteAccount, user }) => {
+const Account: FC<IProps> = ({ onClickDeleteAccount, onClickChangePassword, user }) => {
   const [deletingAccount, setDeletingAccount] = useState(false)
 
   return (
@@ -22,17 +23,13 @@ const Account: FC<IProps> = ({ onClickDeleteAccount, user }) => {
         <div className='flex w-full flex-row gap-12 max-[900px]:flex-col'>
           <div className='flex flex-row items-end justify-center gap-12 w-full'>
             <Input
+              disabled
               label='Username'
-              placeholder={user?.username ?? 'Unkown user'}
-              onChange={(e) => {}}
-              value={''}
+              placeholder={user?.username ?? 'Unkown username'}
+              onChange={() => {}}
+              value={user?.username ?? 'Unkown username'}
               error={undefined}
             />
-            <div className='flex'>
-              <Button variant='dark'>
-                <Typography text='small'>Save</Typography>
-              </Button>
-            </div>
           </div>
           <Input
             disabled
@@ -44,7 +41,7 @@ const Account: FC<IProps> = ({ onClickDeleteAccount, user }) => {
           />
         </div>
         <div className='flex flex-row gap-12 w-full max-[900px]:flex-col'>
-          <Button variant='dark'>
+          <Button variant='dark' onClick={onClickChangePassword}>
             <Typography>Change password</Typography>
           </Button>
           <Button
