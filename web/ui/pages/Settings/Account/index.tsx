@@ -2,8 +2,15 @@
 import { Button } from '@components/Buttons/Button'
 import Input from '@components/Input'
 import { Typography } from '@components/Typography'
+import { FC, useState } from 'react'
 
-const Account = () => {
+export interface IProps {
+  onClickDeleteAccount: () => Promise<boolean>
+}
+
+const Account: FC<IProps> = ({ onClickDeleteAccount }) => {
+  const [deletingAccount, setDeletingAccount] = useState(false)
+
   return (
     <section className='mt-24 flex flex-col gap-12 '>
       <div className='justify-center flex flex-col gap-24 rounded-2xl border border-border bg-card p-20 shadow-soft transition-colors hover:border-input'>
@@ -38,7 +45,15 @@ const Account = () => {
           <Button variant='dark'>
             <Typography>Change password</Typography>
           </Button>
-          <Button variant='red'>
+          <Button
+            disabled={deletingAccount}
+            variant='red'
+            onClick={() => {
+              setDeletingAccount(true)
+              onClickDeleteAccount().finally(() => {
+                setDeletingAccount(false)
+              })
+            }}>
             <Typography>Delete account</Typography>
           </Button>
         </div>

@@ -5,6 +5,7 @@ from fastapi import Depends
 from database import Database
 from database.database import get_db
 from database.query.user import (
+    delete_user,
     get_user_by_email,
     get_user_by_id,
     get_user_by_username,
@@ -48,8 +49,13 @@ class UserRepository:
                 new_user.created_at,
             ),
         )
-
         return new_user
+
+    async def delete_user(self, user_id: str):
+        return await self.db.execute_query(
+            delete_user,
+            (user_id,),
+        )
 
 
 async def get_user_repository(

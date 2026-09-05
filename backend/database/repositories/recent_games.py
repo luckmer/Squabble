@@ -4,6 +4,7 @@ from fastapi import Depends
 
 from database import Database, get_db
 from database.query.recent_games import (
+    delete_user_recent_games,
     get_user_recent_games,
     get_user_recent_games_stats,
     insert_recent_game,
@@ -77,6 +78,12 @@ class RecentGamesRepository:
         )
 
         return recent_game
+
+    async def delete_user_recent_games(self, user_id: str):
+        if self.db.cursor is None or self.db.database is None:
+            raise RuntimeError("Database is not connected.")
+
+        await self.db.execute_query(delete_user_recent_games, (user_id,))
 
 
 async def get_recent_games_repository(

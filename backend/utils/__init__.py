@@ -1,3 +1,4 @@
 from .cursor import Cursor, CursorPagination
+from .session import Session
 
-__all__ = ["CursorPagination", "Cursor"]
+__all__ = ["CursorPagination", "Cursor", "Session"]

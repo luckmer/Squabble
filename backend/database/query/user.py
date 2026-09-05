@@ -18,3 +18,7 @@ insert_user = """
   INSERT INTO users (id, email, username, hashed_password, created_at)
   VALUES (?, ?, ?, ?, ?)
 """
+
+delete_user = """
+  DELETE FROM users WHERE id = ?
+"""

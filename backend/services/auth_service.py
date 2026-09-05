@@ -8,11 +8,10 @@ from database.repositories.user import UserRepository, get_user_repository
 from schemas import (
     LoginUserRequest,
     RegisterUserRequest,
-    TokenResponse,
     User,
     UserPublic,
 )
-from security.index import security
+from security import security
 
 
 class AuthService:
@@ -49,7 +48,7 @@ class AuthService:
             created_at=created.created_at,
         )
 
-    async def login_user(self, payload: LoginUserRequest) -> TokenResponse:
+    async def login_user(self, payload: LoginUserRequest) -> str:
         user = await self.user_repo.get_user_by_username(payload.username)
 
         if not user:
@@ -68,20 +67,11 @@ class AuthService:
                 detail="Invalid username or password",
             )
 
-        return TokenResponse(
-            access_token=security.create_access_token(existing_user.id),
-            refresh_token=security.create_refresh_token(existing_user.id),
-        )
+        return existing_user.id
 
-    def token_refresh(self, response: Response, user_id: str):
-        tokens = TokenResponse(
-            access_token=security.create_access_token(user_id),
-            refresh_token=security.create_refresh_token(user_id),
-        )
-
-        security.set_auth_cookies(response, tokens)
-
-        return tokens
+    async def delete_account(self, response: Response, user_id: str):
+        await self.user_repo.delete_user(user_id)
+        security.clear_auth_cookies(response)
 
 
 def get_auth_service(

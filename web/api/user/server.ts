@@ -1,4 +1,5 @@
 'use server'
+import { deleteCookies } from '@api/cookies/server'
 import { IPublicUser } from '@interfaces/api/user/interfaces'
 import { getApi } from '@libs/ApiService'
 import { ENDPOINTS } from '@static/enpoints'
@@ -16,4 +17,13 @@ export const getUserProfile = async (): Promise<IPublicUser | null> => {
   } catch {
     return null
   }
+}
+
+export const deleteUserProfile = async (): Promise<void> => {
+  const api = getApi()
+  const cookieStore = await cookies()
+  await api.delete<void>(ENDPOINTS.DELETE, {
+    cookie: cookieStore.toString(),
+  })
+  await deleteCookies()
 }

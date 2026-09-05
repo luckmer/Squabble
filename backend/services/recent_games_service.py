@@ -72,6 +72,9 @@ class RecentGamesService:
     ) -> RecentGameCreate:
         return await self.recent_games_repo.create_recent_game(recent_game, user_id)
 
+    async def delete_user_recent_games(self, user_id: str):
+        return await self.recent_games_repo.delete_user_recent_games(user_id)
+
 
 def get_recent_games_service(
     recent_games_repo: RecentGamesRepository = Depends(get_recent_games_repository),

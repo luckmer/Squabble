@@ -1,9 +1,14 @@
 'use client'
 import { Typography } from '@components/Typography'
+import { FC } from 'react'
 import Account from './Account'
 import Notifications from './Notifications'
 
-const Settings = () => {
+export interface IProps {
+  onClickDeleteAccount: () => Promise<boolean>
+}
+
+const Settings: FC<IProps> = ({ onClickDeleteAccount }) => {
   return (
     <main className='flex flex-col h-full overflow-hidden'>
       <div className='overflow-y-auto min-h-0 w-full '>
@@ -20,7 +25,7 @@ const Settings = () => {
               </div>
             </div>
           </section>
-          <Account />
+          <Account onClickDeleteAccount={onClickDeleteAccount} />
           <section className='mt-32 flex flex-col gap-12 '>
             <div className='justify-center flex flex-col gap-24 rounded-2xl border border-border bg-card p-20 shadow-soft transition-colors hover:border-input'>
               <Typography text='body' medium>

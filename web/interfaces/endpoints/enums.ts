@@ -6,6 +6,11 @@ export enum AUTH_ENDPOINTS {
   LOGOUT = 'LOGOUT',
 }
 
+export enum SESSION_ENDPOINTS {
+  REFRESH = 'REFRESH',
+  VALIDATE = 'VALIDATE',
+}
+
 export enum PASSWORD_ENDPOINTS {
   FORGOT = 'FORGOT',
   RESET = 'RESET',
@@ -16,6 +21,7 @@ export enum HEALTH_ENDPOINTS {
 }
 
 export enum USER_ENDPOINTS {
+  DELETE = 'DELETE',
   STATISTICS = 'STATISTICS',
   PROFILE = 'PROFILE',
 }

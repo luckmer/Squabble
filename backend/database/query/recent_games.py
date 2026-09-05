@@ -24,3 +24,8 @@ insert_recent_game = """
   INSERT INTO recent_games (user_id, opponent_name, game_mode, played_at, duration_seconds, words_solved, words_total)
   VALUES ( ?, ?, ?, ?, ?, ?, ?)
 """
+
+
+delete_user_recent_games = """
+  DELETE FROM recent_games WHERE user_id = ?
+"""

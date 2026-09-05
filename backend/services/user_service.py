@@ -24,9 +24,6 @@ class UserService:
             created_at=user["created_at"],
         )
 
-    async def get_user_statistics(self, user_id: str):
-        return ""
-
 
 def get_user_service(
     user_repo: UserRepository = Depends(get_user_repository),
