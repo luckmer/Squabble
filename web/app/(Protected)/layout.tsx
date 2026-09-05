@@ -5,8 +5,8 @@ import { getUserProfile } from '@api/user/server'
 import { Store } from '@store/index'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
-import { Toaster } from 'sonner'
 
+import { Toaster } from 'sonner'
 import Header from '../Header'
 
 const generalSans = localFont({

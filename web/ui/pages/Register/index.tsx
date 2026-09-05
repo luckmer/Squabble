@@ -20,8 +20,16 @@ const Register: FC<IProps> = ({ onSubmit }) => {
         <section className='w-full max-w-6xl min-h-full mx-auto flex flex-col gap-32 items-center justify-center px-24 py-40 pb-40'>
           <LinkButton variant='none' href='/' class='flex flex-row items-center gap-8'>
             <div className='flex flex-row gap-4'>
-              <Tile tile='correct'>S</Tile>
-              <Tile tile='present'>G</Tile>
+              <Tile tile='correct'>
+                <Typography text='small' color='black'>
+                  S
+                </Typography>
+              </Tile>
+              <Tile tile='present'>
+                <Typography text='small' color='black'>
+                  S
+                </Typography>
+              </Tile>
             </div>
             <Typography text='body' medium>
               Sguabble

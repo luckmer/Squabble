@@ -3,7 +3,6 @@ import { Typography } from '@components/Typography'
 import { IPublicUser } from '@interfaces/api/user/interfaces'
 import { FC } from 'react'
 import Account from './Account'
-import Notifications from './Notifications'
 
 export interface IProps {
   onClickDeleteAccount: () => Promise<boolean>
@@ -38,7 +37,6 @@ const Settings: FC<IProps> = ({ onClickDeleteAccount, user }) => {
               </Typography>
             </div>
           </section>
-          <Notifications />
         </section>
       </div>
     </main>

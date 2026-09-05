@@ -48,8 +48,16 @@ const HeaderPage: FC<IProps> = ({
             href={isAuthenticated ? '/dashboard' : '/'}
             class='flex flex-row items-center gap-8'>
             <div className='flex flex-row gap-4'>
-              <Tile tile='correct'>S</Tile>
-              <Tile tile='present'>G</Tile>
+              <Tile tile='correct'>
+                <Typography text='small' color='black'>
+                  S
+                </Typography>
+              </Tile>
+              <Tile tile='present'>
+                <Typography text='small' color='black'>
+                  S
+                </Typography>
+              </Tile>
             </div>
             <Typography text='body' medium>
               Sguabble
