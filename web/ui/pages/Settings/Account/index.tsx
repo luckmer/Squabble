@@ -2,13 +2,15 @@
 import { Button } from '@components/Buttons/Button'
 import Input from '@components/Input'
 import { Typography } from '@components/Typography'
+import { IPublicUser } from '@interfaces/api/user/interfaces'
 import { FC, useState } from 'react'
 
 export interface IProps {
   onClickDeleteAccount: () => Promise<boolean>
+  user: IPublicUser | null
 }
 
-const Account: FC<IProps> = ({ onClickDeleteAccount }) => {
+const Account: FC<IProps> = ({ onClickDeleteAccount, user }) => {
   const [deletingAccount, setDeletingAccount] = useState(false)
 
   return (
@@ -21,7 +23,7 @@ const Account: FC<IProps> = ({ onClickDeleteAccount }) => {
           <div className='flex flex-row items-end justify-center gap-12 w-full'>
             <Input
               label='Username'
-              placeholder='username'
+              placeholder={user?.username ?? 'Unkown user'}
               onChange={(e) => {}}
               value={''}
               error={undefined}
@@ -35,9 +37,9 @@ const Account: FC<IProps> = ({ onClickDeleteAccount }) => {
           <Input
             disabled
             label='Email'
-            placeholder='email'
+            placeholder={user?.email ?? 'Unkown email'}
             onChange={() => {}}
-            value={'dsds'}
+            value={user?.email ?? 'Unkown email'}
             error={undefined}
           />
         </div>

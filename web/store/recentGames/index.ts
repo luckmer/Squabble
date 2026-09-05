@@ -2,6 +2,7 @@
 
 import { getRecentGames, getRecentGamesStats } from '@api/recentGames/server'
 import { IRecentGame } from '@interfaces/api/recentGames/interfaces'
+import { toast } from 'sonner'
 import { create } from 'zustand'
 
 export interface IRecentGamesStore {
@@ -71,7 +72,7 @@ export const recentGamesStore = create<IRecentGamesStore>((set, get) => ({
 
   fetchRecentGames: async (cursor = null) => {
     const { isGamesLoading, isGamesLoadingMore } = get()
-
+    await new Promise((resolve) => setTimeout(resolve, 500))
     if (cursor && isGamesLoadingMore) return
     if (!cursor && isGamesLoading) return
 
@@ -89,7 +90,6 @@ export const recentGamesStore = create<IRecentGamesStore>((set, get) => ({
 
     try {
       const response = await getRecentGames(cursor)
-
       set((state) => ({
         recentGames: cursor ? [...state.recentGames, ...response.items] : response.items,
 
@@ -106,6 +106,7 @@ export const recentGamesStore = create<IRecentGamesStore>((set, get) => ({
             }),
       }))
     } catch (error) {
+      toast('Failed to fetch recent games')
       set({
         error: error instanceof Error ? error.message : 'Failed to fetch games',
 
@@ -143,6 +144,7 @@ export const recentGamesStore = create<IRecentGamesStore>((set, get) => ({
         isStatsPrevLoading: false,
       })
     } catch (error) {
+      toast('Failed to fetch recent games stats')
       set({
         error: error instanceof Error ? error.message : 'Failed to fetch stats',
         isStatsLoading: false,

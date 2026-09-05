@@ -1,0 +1,54 @@
+[data-sonner-toaster] {
+  --normal-bg: var(--popover) !important;
+  --normal-border: var(--border) !important;
+  --normal-text: var(--foreground) !important;
+
+  --success-bg: var(--card) !important;
+  --success-border: var(--border) !important;
+  --success-text: var(--foreground) !important;
+
+  --error-bg: var(--card) !important;
+  --error-border: var(--border) !important;
+  --error-text: var(--foreground) !important;
+
+  --warning-bg: var(--card) !important;
+  --warning-border: var(--border) !important;
+  --warning-text: var(--foreground) !important;
+
+  --info-bg: var(--card) !important;
+  --info-border: var(--border) !important;
+  --info-text: var(--foreground) !important;
+}
+
+[data-sonner-toast],
+[data-sonner-toast][data-type='success'],
+[data-sonner-toast][data-type='error'],
+[data-sonner-toast][data-type='warning'],
+[data-sonner-toast][data-type='info'],
+[data-sonner-toast][data-type='loading'] {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-color: var(--border) !important;
+  color: var(--foreground) !important;
+  box-shadow: var(--shadow-soft) !important;
+}
+
+[data-sonner-toast] [data-title] {
+  color: var(--foreground) !important;
+}
+
+[data-sonner-toast] [data-description] {
+  color: var(--muted-foreground) !important;
+}
+
+[data-sonner-toast] [data-close-button] {
+  background: var(--card) !important;
+  border-color: var(--border) !important;
+  color: var(--muted-foreground) !important;
+}
+
+[data-sonner-toast] [data-close-button]:hover {
+  background: var(--muted) !important;
+  border-color: var(--border) !important;
+  color: var(--foreground) !important;
+}

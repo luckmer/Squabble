@@ -6,6 +6,7 @@ import { recentGamesSelector } from '@store/recentGames/selector'
 import { userSelector } from '@store/user/selector'
 
 import { useEffect, useMemo } from 'react'
+import { toast } from 'sonner'
 
 const DashboardRoot = () => {
   const user = userSelector.use.user()
@@ -56,7 +57,19 @@ const DashboardRoot = () => {
       isLoading={isPrevLoading}
       isStatsLoading={isPrevStatsLoading}
       isCursor={cursor !== null}
-      onClickLoadMore={() => fetchRecentGames(cursor)}
+      onClickLoadMore={() => {
+        const promise = fetchRecentGames(cursor)
+        toast.promise(promise, {
+          loading: 'Loading...',
+          success: 'Loaded!',
+          error: 'Something went wrong',
+          classNames: {
+            toast: 'border-border! bg-card! text-foreground!',
+          },
+        })
+
+        return promise
+      }}
     />
   )
 }
