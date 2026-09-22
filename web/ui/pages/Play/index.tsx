@@ -44,6 +44,7 @@ const Play: FC<IProps> = ({
     setPrevBoard(board)
     setCoordinates([])
     setStatus(null)
+    setHint('')
     setIsMouseDown(false)
     setIsClearing(false)
   }
@@ -114,6 +115,7 @@ const Play: FC<IProps> = ({
     setIsMouseDown(false)
     setIsClearing(false)
     setStatus(null)
+    setHint('')
     setCoordinates([])
     onClickGenerateNewBoard()
   }, [clearPendingTimeouts, onClickGenerateNewBoard])
@@ -183,6 +185,10 @@ const Play: FC<IProps> = ({
       })
   }, [gameboard])
 
+  const isBoardDisabled = useMemo(() => {
+    return isDisabled || wordsFound.length === answers.length
+  }, [isDisabled, wordsFound, answers])
+
   const isBoardSolved = useMemo(() => {
     return wordsFound.length === answers.length
   }, [wordsFound, answers])
@@ -218,12 +224,12 @@ const Play: FC<IProps> = ({
                         return (
                           <button
                             type='button'
-                            disabled={isDisabled}
+                            disabled={isBoardDisabled}
                             key={j}
                             onMouseDown={() => handleMouseDown(i, j)}
                             onMouseEnter={() => handleMouseEnter(i, j)}
                             className={clsx(
-                              isDisabled ? 'opacity-[0.5]' : 'cursor-pointer',
+                              isBoardDisabled ? 'opacity-[0.5]' : 'cursor-pointer',
                               'aspect-square w-87 flex items-center justify-center rounded-2xl border border-border bg-card ',
                               'transition-all duration-200 ease-out will-change-transform',
                               selected && !isClearing && 'bg-card/50 shadow-soft scale-95',
@@ -283,7 +289,7 @@ const Play: FC<IProps> = ({
                     <Typography color='black'>Submit</Typography>
                   </Button>
                   <Button
-                    disabled={isDisabled}
+                    disabled={isBoardDisabled}
                     variant='dark'
                     onClick={() => {
                       const hint = answers[Math.floor(Math.random() * answers.length)]
@@ -292,7 +298,7 @@ const Play: FC<IProps> = ({
                     <MdOutlineLightbulb />
                   </Button>
                 </div>
-                {hint.trim().length > 0 && (
+                {hint.trim().length > 0 && !isBoardDisabled && (
                   <div className='flex flex-row items-center gap-4'>
                     <Typography text='small' color='mutedForeground'>
                       Hint:
@@ -304,7 +310,7 @@ const Play: FC<IProps> = ({
                 )}
                 <div>
                   <Button
-                    disabled={isDisabled}
+                    disabled={isBoardDisabled}
                     onClick={onClickFinishBoard}
                     variant='none'
                     class='flex flex-row items-center gap-8 hover:underline group'>

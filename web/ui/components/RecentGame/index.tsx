@@ -14,7 +14,6 @@ const RecentGame: FC<IProps> = ({
   game_mode,
   words_total,
   words_solved,
-  opponent_name,
   played_at,
   duration_seconds,
 }) => {
@@ -39,12 +38,7 @@ const RecentGame: FC<IProps> = ({
             <Typography medium>
               {isClearedBoard ? 'Cleared the board' : `${words_solved} of ${words_total}`}
             </Typography>
-
-            <Typography color='mutedForeground'>
-              {game_mode === GAME_MODE.SINGLE_PLAYER
-                ? 'Single player'
-                : `Multiplayer · vs ${opponent_name}`}
-            </Typography>
+            <Typography color='mutedForeground'>Single player</Typography>
           </div>
           <Typography color='mutedForeground' text='small'>
             {formatGameTime(duration_seconds, played_at)}

@@ -7,12 +7,10 @@ import { PopoverTrigger } from '@components/Popover/PopoverTrigger'
 import { Typography } from '@components/Typography'
 import { IPublicUser } from '@interfaces/api/user/interfaces'
 import { FC, useState } from 'react'
-import { BiGroup } from 'react-icons/bi'
 import { CiSettings } from 'react-icons/ci'
 import { LiaGamepadSolid } from 'react-icons/lia'
 import { PiSignOutBold } from 'react-icons/pi'
 import { TbLayoutDashboard } from 'react-icons/tb'
-import { TfiCup } from 'react-icons/tfi'
 
 interface IProps {
   user: IPublicUser | null
@@ -52,27 +50,6 @@ export const UserMenu: FC<IProps> = ({ user, onClickLogout }) => {
               class='flex flex-row items-center gap-8'>
               <LiaGamepadSolid />
               <Typography>Play</Typography>
-            </LinkButton>
-            <LinkButton
-              variant='transparent'
-              href='/multiplayer'
-              onClick={() => {
-                setOpen(false)
-              }}
-              class='flex flex-row items-center gap-8'>
-              <BiGroup />
-
-              <Typography>Multiplayer</Typography>
-            </LinkButton>
-            <LinkButton
-              variant='transparent'
-              href='/leaderboard'
-              onClick={() => {
-                setOpen(false)
-              }}
-              class='flex flex-row items-center gap-8'>
-              <TfiCup />
-              <Typography>Leaderboard</Typography>
             </LinkButton>
           </div>
           <div className='flex flex-col border-b border-border py-8 gap-4'>

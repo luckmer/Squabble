@@ -38,7 +38,7 @@ const Settings: FC<IProps> = ({ onClickDeleteAccount, onClickChangePassword, use
                 Appearance
               </Typography>
               <Typography color='mutedForeground'>
-                Wordly currently ships with a single, dark theme tuned for long sessions.
+                Sguabble currently ships with a single, dark theme tuned for long sessions.
               </Typography>
             </div>
           </section>

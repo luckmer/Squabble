@@ -20,23 +20,6 @@ const HeaderNavigation: FC<IProps> = ({ pathname }) => {
       </LinkButton>
       <LinkButton
         variant='transparent'
-        href='/multiplayer'
-        class={pathname === '/multiplayer' ? 'bg-accent' : ''}>
-        <Typography text='small' color='mutedForeground' medium>
-          Multiplayer
-        </Typography>
-      </LinkButton>
-      <LinkButton
-        variant='transparent'
-        href='/leaderboard'
-        class={pathname === '/leaderboard' ? 'bg-accent' : ''}>
-        <Typography text='small' color='mutedForeground' medium>
-          Leaderboard
-        </Typography>
-      </LinkButton>
-
-      <LinkButton
-        variant='transparent'
         href='/settings'
         class={pathname === '/settings' ? 'bg-accent' : ''}>
         <Typography text='small' color='mutedForeground' medium>
